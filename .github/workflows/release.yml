@@ -24,7 +24,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.5.0
+        terraform_version: 1.5.7
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
@@ -41,7 +41,7 @@ jobs:
         password: '${{ steps.auth.outputs.access_token }}'
     - name: Terraform Init
       id: init
-      run: cd cicd_bootstrap && init -backend-config=../env/backend.tfvars
+      run: init -backend-config=env/backend.tfvars
     - name: Terraform Apply
       id: apply
       run: terraform apply -no-color -var-file env/project.tfvars -auto-approve
